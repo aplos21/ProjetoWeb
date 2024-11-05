@@ -1,0 +1,44 @@
+-- Script para o banco de dados Licença Ágil
+
+-- Tabela Usuario
+CREATE TABLE usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    nome_cliente VARCHAR(100) NOT NULL,
+    setor VARCHAR(50),
+    telefone VARCHAR(15),
+    CPF VARCHAR(11) UNIQUE NOT NULL,
+    cargo VARCHAR(50)
+);
+
+-- Tabela Empresas
+CREATE TABLE empresas (
+    id_empresa SERIAL PRIMARY KEY,
+    nome_empresa VARCHAR(100) NOT NULL,
+    telefone VARCHAR(15),
+    regiao VARCHAR(50),
+    bairro VARCHAR(50),
+    rua VARCHAR(100),
+    nome_socios TEXT,
+    area_atuacao VARCHAR(100),
+    cod_cnae VARCHAR(20),
+    CNPJ VARCHAR(14) UNIQUE NOT NULL,
+    CEP VARCHAR(8)
+);
+
+-- Tabela Empresario
+CREATE TABLE empresario (
+    id_empresario SERIAL PRIMARY KEY,
+    nome_empresario VARCHAR(100) NOT NULL,
+    CNPJ VARCHAR(14) UNIQUE NOT NULL
+);
+
+-- Relacionamento entre Usuario e Empresas (assumindo que um usuário pode estar associado a várias empresas)
+CREATE TABLE usuario_empresa (
+    id_usuario INT REFERENCES usuario(id_usuario) ON DELETE CASCADE,
+    id_empresa INT REFERENCES empresas(id_empresa) ON DELETE CASCADE,
+    PRIMARY KEY (id_usuario, id_empresa)
+);
+
+192.168.1.10
+
+https://www.devmedia.com.br/como-criar-uma-conexao-em-postgresql-com-python/34079
